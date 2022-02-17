@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <title>Image Slider</title>
+    <style>
+        #main {
+            height: 500px;
+            width: 500px;
+            border: 1px solid red;
+            margin-left: 500px;
+        }
+
+        .button {
+            margin-left: 500px;
+        }
+
+        .btn1 {
+            margin-top: 10px;
+        }
+
+        .btn2 {
+            margin-left: 390px;
+            margin-top: 10px;
+        }
+
+        #main img.show {
+            animation: show .5s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes show {
+            from {
+                transform: scale(1);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        #main img.hide {
+            animation: hide .5s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes hide {
+            from {
+                transform: scale(1);
+                opacity: 1
+            }
+
+            to {
+                transform: scale(0.9);
+                opacity: 0
+            }
+        }
+    </style>
+    <script>
+        let img;
+        function getImagePath() {
+            let list = [
+                '/Js/imgSlider/img/img1.png',
+                '/Js/imgSlider/img/img2.png',
+                '/Js/imgSlider/img/img3.png',
+                '/Js/imgSlider/img/img4.png'
+            ]
+            return list;
+        }
+        function goNext() {
+            if (img == null) {
+                img = getImagePath();
+            }
+            let count = document.getElementById("count").value;
+            count = new Number(count);
+            let image = document.getElementById("image");
+            if (count < img.length - 1 && count >= 0) {
+                count = count + 1;
+                image.className = "hide";
+
+                setTimeout(function () {
+                    image.setAttribute('src', img[count]);
+                }, 501);
+
+                setTimeout(function () {
+                    image.className = "show";
+                }, 500);
+                document.getElementById("count").value = count;
+            }
+        }
+        function goBack() {
+            if (img.length == 0) {
+                img = getImagePath();
+            }
+            let count = document.getElementById("count").value;
+            count = new Number(count);
+            let image = document.getElementById("image");
+            if (count > 0) {
+                count = count - 1;
+                image.className = "hide";
+
+                setTimeout(function () {
+                    image.setAttribute('src', img[count]);
+                }, 501);
+
+                setTimeout(function () {
+                    image.className = "show";
+                }, 500);
+                document.getElementById("count").value = count;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input type="hidden" value=0 id="count">
+    <div id="main">
+        <img src="/Js/imgSlider/img/img1.png" height="500px" width="500px" id="image">
+    </div>
+    <div class="button">
+        <button class="btn1" onclick="goBack()">Previous</button>
+        <button class="btn2" onclick="goNext()">Next</button>
+
+    </div>
+</body>
+
+</html>
